@@ -1,0 +1,172 @@
+Processor: Intel(R) Xeon(R) CPU @ 2.30GHz
+RAM: 124Gi
+GPU:     Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+Files already downloaded and verified
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.5316
+Batch size: 32, Training time for epoch: 58.90 seconds
+Batch size: 32, Communication time for epoch: 26.0474 seconds
+Epoch 2: Loss 0.9948
+Batch size: 32, Training time for epoch: 38.87 seconds
+Batch size: 32, Communication time for epoch: 8.0640 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.5250
+Batch size: 32, Training time for epoch: 21.85 seconds
+Batch size: 32, Communication time for epoch: 5.4742 seconds
+Epoch 2: Loss 0.9912
+Batch size: 32, Training time for epoch: 20.88 seconds
+Batch size: 32, Communication time for epoch: 4.2895 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.5351
+Batch size: 32, Training time for epoch: 21.85 seconds
+Batch size: 32, Communication time for epoch: 5.4862 seconds
+Epoch 2: Loss 1.0043
+Batch size: 32, Training time for epoch: 20.88 seconds
+Batch size: 32, Communication time for epoch: 4.1018 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.5098
+Batch size: 32, Training time for epoch: 12.37 seconds
+Batch size: 32, Communication time for epoch: 3.4425 seconds
+Epoch 2: Loss 0.9841
+Batch size: 32, Training time for epoch: 10.85 seconds
+Batch size: 32, Communication time for epoch: 2.0594 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.4779
+Batch size: 32, Training time for epoch: 12.37 seconds
+Batch size: 32, Communication time for epoch: 3.4544 seconds
+Epoch 2: Loss 0.9731
+Batch size: 32, Training time for epoch: 10.85 seconds
+Batch size: 32, Communication time for epoch: 2.0710 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.5061
+Batch size: 32, Training time for epoch: 12.37 seconds
+Batch size: 32, Communication time for epoch: 3.4609 seconds
+Epoch 2: Loss 0.9822
+Batch size: 32, Training time for epoch: 10.85 seconds
+Batch size: 32, Communication time for epoch: 2.0708 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.5115
+Batch size: 32, Training time for epoch: 12.37 seconds
+Batch size: 32, Communication time for epoch: 3.4301 seconds
+Epoch 2: Loss 0.9758
+Batch size: 32, Training time for epoch: 10.85 seconds
+Batch size: 32, Communication time for epoch: 2.0640 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.4667
+Batch size: 128, Training time for epoch: 36.17 seconds
+Batch size: 128, Communication time for epoch: 3.4048 seconds
+Epoch 2: Loss 0.9564
+Batch size: 128, Training time for epoch: 34.42 seconds
+Batch size: 128, Communication time for epoch: 2.0659 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.4941
+Batch size: 128, Training time for epoch: 19.51 seconds
+Batch size: 128, Communication time for epoch: 2.4995 seconds
+Epoch 2: Loss 1.0076
+Batch size: 128, Training time for epoch: 18.06 seconds
+Batch size: 128, Communication time for epoch: 1.0755 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.5047
+Batch size: 128, Training time for epoch: 19.51 seconds
+Batch size: 128, Communication time for epoch: 2.4128 seconds
+Epoch 2: Loss 1.0276
+Batch size: 128, Training time for epoch: 18.06 seconds
+Batch size: 128, Communication time for epoch: 1.0889 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.6139
+Batch size: 128, Training time for epoch: 10.91 seconds
+Batch size: 128, Communication time for epoch: 1.9365 seconds
+Epoch 2: Loss 1.1296
+Batch size: 128, Training time for epoch: 9.22 seconds
+Batch size: 128, Communication time for epoch: 0.5414 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.6305
+Batch size: 128, Training time for epoch: 10.91 seconds
+Batch size: 128, Communication time for epoch: 1.9515 seconds
+Epoch 2: Loss 1.1678
+Batch size: 128, Training time for epoch: 9.22 seconds
+Batch size: 128, Communication time for epoch: 0.5325 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.6382
+Batch size: 128, Training time for epoch: 10.91 seconds
+Batch size: 128, Communication time for epoch: 1.9461 seconds
+Epoch 2: Loss 1.1606
+Batch size: 128, Training time for epoch: 9.22 seconds
+Batch size: 128, Communication time for epoch: 0.5351 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.6210
+Batch size: 128, Training time for epoch: 10.91 seconds
+Batch size: 128, Communication time for epoch: 1.9831 seconds
+Epoch 2: Loss 1.1526
+Batch size: 128, Training time for epoch: 9.22 seconds
+Batch size: 128, Communication time for epoch: 0.5640 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.6094
+Batch size: 512, Training time for epoch: 33.33 seconds
+Batch size: 512, Communication time for epoch: 1.9743 seconds
+Epoch 2: Loss 1.1235
+Batch size: 512, Training time for epoch: 32.24 seconds
+Batch size: 512, Communication time for epoch: 0.5907 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.7754
+Batch size: 512, Training time for epoch: 17.90 seconds
+Batch size: 512, Communication time for epoch: 1.6873 seconds
+Epoch 2: Loss 1.2916
+Batch size: 512, Training time for epoch: 16.42 seconds
+Batch size: 512, Communication time for epoch: 0.2935 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.7791
+Batch size: 512, Training time for epoch: 17.90 seconds
+Batch size: 512, Communication time for epoch: 1.6785 seconds
+Epoch 2: Loss 1.3032
+Batch size: 512, Training time for epoch: 16.42 seconds
+Batch size: 512, Communication time for epoch: 0.3025 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 1.9725
+Batch size: 512, Training time for epoch: 9.84 seconds
+Batch size: 512, Communication time for epoch: 1.5528 seconds
+Epoch 2: Loss 1.5334
+Batch size: 512, Training time for epoch: 8.42 seconds
+Batch size: 512, Communication time for epoch: 0.1557 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.9712
+Batch size: 512, Training time for epoch: 9.84 seconds
+Batch size: 512, Communication time for epoch: 1.5303 seconds
+Epoch 2: Loss 1.5382
+Batch size: 512, Training time for epoch: 8.42 seconds
+Batch size: 512, Communication time for epoch: 0.1459 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.9553
+Batch size: 512, Training time for epoch: 9.84 seconds
+Batch size: 512, Communication time for epoch: 1.5690 seconds
+Epoch 2: Loss 1.5036
+Batch size: 512, Training time for epoch: 8.42 seconds
+Batch size: 512, Communication time for epoch: 0.1492 seconds
+Files already downloaded and verified
+Epoch 1: Loss 1.9789
+Batch size: 512, Training time for epoch: 9.84 seconds
+Batch size: 512, Communication time for epoch: 1.5572 seconds
+Epoch 2: Loss 1.5341
+Batch size: 512, Training time for epoch: 8.42 seconds
+Batch size: 512, Communication time for epoch: 0.1526 seconds
