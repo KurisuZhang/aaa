@@ -67,13 +67,6 @@ class ResNet(nn.Module):
         out = self.linear(out)
         return out
 
-def accuracy(output, target):
-    with torch.no_grad():
-        batch_size = target.size(0)
-        _, pred = output.topk(1, 1, True, True)
-        pred = pred.t()
-        correct = pred.eq(target.view(1, -1).expand_as(pred)).view(-1).float().sum(0, keepdim=True)
-        return correct.mul_(100.0 / batch_size).item()
 
 def train(rank, world_size, model, batch_size, epochs):
     torch.manual_seed(0)
@@ -106,8 +99,7 @@ def train(rank, world_size, model, batch_size, epochs):
 
     for epoch in range(epochs):
         epoch_start_time = time.time()
-        epoch_loss = 0.0
-        epoch_accuracy = 0.0        
+        epoch_loss = 0.0      
         comm_time = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -121,13 +113,11 @@ def train(rank, world_size, model, batch_size, epochs):
             optimizer.step()
 
             epoch_loss += loss.item()
-            epoch_accuracy += accuracy(outputs, labels)
 
         epoch_loss /= len(train_loader)
-        epoch_accuracy /= len(train_loader)
         epoch_time = time.time() - epoch_start_time
 
-        print(f"Epoch {epoch + 1}: Loss {epoch_loss:.4f}, Accuracy {epoch_accuracy:.2f}%")
+        print(f"Epoch {epoch + 1}: Loss {epoch_loss:.4f}")
         print(f"Batch size: {batch_size}, Training time for epoch: {epoch_time:.2f} seconds")
         print(f"Batch size: {batch_size}, Communication time for epoch: {comm_time:.4f} seconds")
 
