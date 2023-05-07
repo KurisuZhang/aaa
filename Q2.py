@@ -116,13 +116,13 @@ def train(rank, world_size, model, batch_size, epochs):
 
         epoch_loss /= len(train_loader)
         epoch_time = time.time() - epoch_start_time
+        if epoch == 1:
+            print(f"Epoch {epoch + 1}: Loss {epoch_loss:.4f}")
+            print(f"Batch size: {batch_size}, Training time for epoch: {epoch_time:.2f} seconds")
+            print(f"Batch size: {batch_size}, Communication time for epoch: {comm_time:.4f} seconds")
 
-        print(f"Epoch {epoch + 1}: Loss {epoch_loss:.4f}")
-        print(f"Batch size: {batch_size}, Training time for epoch: {epoch_time:.2f} seconds")
-        print(f"Batch size: {batch_size}, Communication time for epoch: {comm_time:.4f} seconds")
 
-
-def main(gpu_count, model, batch_size=100, epochs=10):
+def main(gpu_counts, model, batch_size=16, epochs=2):
     os.environ['MASTER_ADDR'] = 'localhost'
     os.environ['MASTER_PORT'] = '12355'
     
@@ -142,14 +142,14 @@ train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform
 
 if __name__ == "__main__":
     model = ResNet(BasicBlock, [2, 2, 2, 2])
-    gpu_count = 1
+
     epochs = 2
 
     batch_sizes = [32, 128, 512]
     gpu_counts = [1, 2, 4]
     for batch_size in batch_sizes:
         try:
-            main(gpu_count, model, batch_size, epochs)
+            main(gpu_counts, model, batch_size, epochs)
         except RuntimeError as e:
             if "out of memory" in str(e):
                 print(f"Batch size {batch_size} is too large for the available GPU memory.")
