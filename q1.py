@@ -54,7 +54,7 @@ def measure_training_time(batch_size):
             print(f"Batch size: {batch_size}, Epoch {epoch + 1} training time: {end_time - start_time:.2f} seconds")
 
 # Test for different batch sizes
-batch_sizes = [32, 128, 512]
+batch_sizes = [32, 128, 512, 1024, 2048, 4096]
 for batch_size in batch_sizes:
     try:
         measure_training_time(batch_size)
