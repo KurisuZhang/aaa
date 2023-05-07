@@ -16,4 +16,4 @@ echo "GPU: $(nvidia-smi -q | grep 'Product Name')"
 singularity exec --nv \
 	    --overlay /scratch/sz3714/pytorch-example/my_pytorch.ext3:ro \
 	    /share/apps/images/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif\
-	    /bin/bash -c "source /ext3/env.sh; python q2.py --gpus 2 --batch_size 32; python q2.py --gpus 2 --batch_size 128; python q2.py --gpus 2 --batch_size 512; python q2.py --gpus 4 --batch_size 32; python q2.py --gpus 4 --batch_size 128; python q2.py --gpus 4 --batch_size 256"
+	    /bin/bash -c "source /ext3/env.sh; python Q2.py"
