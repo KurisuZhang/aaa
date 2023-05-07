@@ -1,0 +1,29 @@
+Processor: Intel(R) Xeon(R) CPU @ 2.30GHz
+RAM: 124Gi
+GPU:     Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to ./data/MNIST/raw/train-images-idx3-ubyte.gz
+  0%|          | 0/9912422 [00:00<?, ?it/s]100%|██████████| 9912422/9912422 [00:00<00:00, 118538814.90it/s]
+Extracting ./data/MNIST/raw/train-images-idx3-ubyte.gz to ./data/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to ./data/MNIST/raw/train-labels-idx1-ubyte.gz
+  0%|          | 0/28881 [00:00<?, ?it/s]100%|██████████| 28881/28881 [00:00<00:00, 9138178.47it/s]
+Extracting ./data/MNIST/raw/train-labels-idx1-ubyte.gz to ./data/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw/t10k-images-idx3-ubyte.gz
+  0%|          | 0/1648877 [00:00<?, ?it/s]100%|██████████| 1648877/1648877 [00:00<00:00, 30430287.31it/s]
+Extracting ./data/MNIST/raw/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+  0%|          | 0/4542 [00:00<?, ?it/s]100%|██████████| 4542/4542 [00:00<00:00, 63714143.04it/s]
+Extracting ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw
+
+Batch size: 32, Epoch 2 training time: 12.48 seconds
+Batch size: 128, Epoch 2 training time: 10.22 seconds
+Batch size: 512, Epoch 2 training time: 10.08 seconds
