@@ -1,0 +1,190 @@
+Processor: Intel(R) Xeon(R) CPU @ 2.30GHz
+RAM: 124Gi
+GPU:     Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+Files already downloaded and verified
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 0.9703
+Batch size: 32, Training time for epoch: 38.59 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 0.9554
+Batch size: 32, Training time for epoch: 20.57 seconds
+Files already downloaded and verified
+Epoch 2: Loss 0.9660
+Batch size: 32, Training time for epoch: 20.57 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 0.9666
+Batch size: 32, Training time for epoch: 10.88 seconds
+Files already downloaded and verified
+Epoch 2: Loss 0.9595
+Batch size: 32, Training time for epoch: 10.88 seconds
+Files already downloaded and verified
+Epoch 2: Loss 0.9481
+Batch size: 32, Training time for epoch: 10.88 seconds
+Files already downloaded and verified
+Epoch 2: Loss 0.9588
+Batch size: 32, Training time for epoch: 10.88 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 0.9335
+Batch size: 128, Training time for epoch: 34.70 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 0.9790
+Batch size: 128, Training time for epoch: 17.85 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.0048
+Batch size: 128, Training time for epoch: 17.85 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.1074
+Batch size: 128, Training time for epoch: 9.46 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.0772
+Batch size: 128, Training time for epoch: 9.46 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.1139
+Batch size: 128, Training time for epoch: 9.46 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.1125
+Batch size: 128, Training time for epoch: 9.46 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.1063
+Batch size: 512, Training time for epoch: 32.67 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.3035
+Batch size: 512, Training time for epoch: 16.59 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.2916
+Batch size: 512, Training time for epoch: 16.59 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.5132
+Batch size: 512, Training time for epoch: 8.47 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.5134
+Batch size: 512, Training time for epoch: 8.47 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.4888
+Batch size: 512, Training time for epoch: 8.47 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.5219
+Batch size: 512, Training time for epoch: 8.47 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.2879
+Batch size: 1024, Training time for epoch: 31.55 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.5135
+Batch size: 1024, Training time for epoch: 16.55 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.5038
+Batch size: 1024, Training time for epoch: 16.55 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.7555
+Batch size: 1024, Training time for epoch: 8.42 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.7308
+Batch size: 1024, Training time for epoch: 8.42 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.7434
+Batch size: 1024, Training time for epoch: 8.42 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.7509
+Batch size: 1024, Training time for epoch: 8.42 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.5122
+Batch size: 2048, Training time for epoch: 30.00 seconds
+
+Running with 2 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.7417
+Batch size: 2048, Training time for epoch: 15.12 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.7561
+Batch size: 2048, Training time for epoch: 15.12 seconds
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 2: Loss 1.9845
+Batch size: 2048, Training time for epoch: 7.86 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.9712
+Batch size: 2048, Training time for epoch: 7.86 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.9911
+Batch size: 2048, Training time for epoch: 7.86 seconds
+Files already downloaded and verified
+Epoch 2: Loss 1.9782
+Batch size: 2048, Training time for epoch: 7.86 seconds
+
+Running with 1 GPUs
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/home/sz3714/aaa/Q1.py", line 151, in <module>
+    main(gpu_counts, model, batch_size, epochs)
+  File "/home/sz3714/aaa/Q1.py", line 131, in main
+    mp.spawn(train, args=(world_size, model, batch_size, epochs), nprocs=world_size, join=True)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 240, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 198, in start_processes
+    while not context.join():
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 160, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 69, in _wrap
+    fn(i, *args)
+  File "/home/sz3714/aaa/Q1.py", line 109, in train
+    outputs = model(inputs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1040, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1000, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/sz3714/aaa/Q1.py", line 62, in forward
+    out = self.layer2(out)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/sz3714/aaa/Q1.py", line 33, in forward
+    out = self.bn2(self.conv2(out))
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py", line 171, in forward
+    return F.batch_norm(
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/functional.py", line 2450, in batch_norm
+    return torch.batch_norm(
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 512.00 MiB (GPU 0; 15.78 GiB total capacity; 14.13 GiB already allocated; 80.19 MiB free; 14.41 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+

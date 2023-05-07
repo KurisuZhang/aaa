@@ -16,4 +16,4 @@ echo "GPU: $(nvidia-smi -q | grep 'Product Name')"
 singularity exec --nv \
 	    --overlay /scratch/sz3714/pytorch-example/my_pytorch.ext3:ro \
 	    /share/apps/images/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif\
-	    /bin/bash -c "source /ext3/env.sh; python Q3.py"
+	    /bin/bash -c "source /ext3/env.sh; python Q1.py"
