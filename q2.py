@@ -1,73 +1,156 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-import time
-from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
-import os
-import argparse
+import torch.multiprocessing as mp
+from torch.nn.parallel import DistributedDataParallel as DDP
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+import torch.nn.functional as F
+import time
 
-# Define a simple neural network model
-class SimpleNet(nn.Module):
-    def __init__(self):
-        super(SimpleNet, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3)
-        self.fc1 = nn.Linear(9216, 128)
-        self.fc2 = nn.Linear(128, 10)
+# Define BasicBlock and ResNet classes here
+class BasicBlock(nn.Module):
+    expansion = 1
+
+    def __init__(self, in_planes, planes, stride=1):
+        super(BasicBlock, self).__init__()
+        self.conv1 = nn.Conv2d(in_planes, planes, kernel_size=3, stride=stride, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(planes)
+        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(planes)
+
+        self.shortcut = nn.Sequential()
+        if stride != 1 or in_planes != self.expansion*planes:
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(in_planes, self.expansion*planes, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(self.expansion*planes)
+            )
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = nn.ReLU()(x)
-        x = self.conv2(x)
-        x = nn.ReLU()(x)
-        x = nn.MaxPool2d(kernel_size=2)(x)
-        x = torch.flatten(x, 1)
-        x = self.fc1(x)
-        x = nn.ReLU()(x)
-        x = self.fc2(x)
-        return x
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        out += self.shortcut(x)
+        out = F.relu(out)
+        return out
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--gpus", type=int, default=2, help="Number of GPUs to use")
-    parser.add_argument("--batch_size", type=int, default=32, help="Batch size per GPU")
-    args = parser.parse_args()
+class ResNet(nn.Module):
+    def __init__(self, block, num_blocks, num_classes=10):
+        super(ResNet, self).__init__()
+        self.in_planes = 64
 
-    assert torch.cuda.is_available(), "CUDA is not available, please ensure you have a GPU and CUDA installed."
-    assert torch.cuda.device_count() >= args.gpus, f"Only {torch.cuda.device_count()} GPUs are available."
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3,stride=1, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(64)
+        self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
+        self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
+        self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2)
+        self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=2)
+        self.linear = nn.Linear(512*block.expansion, num_classes)
 
-    os.environ['MASTER_ADDR'] = 'localhost'
-    os.environ['MASTER_PORT'] = '12355'
+    def _make_layer(self, block, planes, num_blocks, stride):
+        strides = [stride] + [1]*(num_blocks-1)
+        layers = []
+        for stride in strides: 
+            layers.append(block(self.in_planes, planes, stride))
+            self.in_planes = planes * block.expansion
+        return nn.Sequential(*layers)
 
-    dist.init_process_group("gloo", rank=0, world_size=1)
+    def forward(self, x):
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.layer1(out)
+        out = self.layer2(out)
+        out = self.layer3(out)
+        out = self.layer4(out)
+        out = F.avg_pool2d(out, 4)
+        out = out.view(out.size(0), -1)
+        out = self.linear(out)
+        return out
 
-    transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
 
-    model = SimpleNet().to(args.gpus)
-    model = DDP(model, device_ids=[args.gpus], output_device=args.gpus)
-    criterion = nn.CrossEntropyLoss().to(args.gpus)
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+def train(rank, world_size, model, batch_size, epochs):
+    torch.manual_seed(0)
+    device = torch.device(f'cuda:{rank}')
+    
+    dist.init_process_group(
+        backend='nccl',
+        init_method='env://',
+        world_size=world_size,
+        rank=rank
+    )
 
-    train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset, num_replicas=args.gpus, rank=0)
-    train_loader = DataLoader(train_dataset, batch_size=args.batch_size * args.gpus, shuffle=False, num_workers=4, pin_memory=True, sampler=train_sampler)
+    model.to(device)
+    model = DDP(model, device_ids=[rank])
 
-    for epoch in range(2):
-        start_time = time.time()
-        for data, target in train_loader:
-            data, target = data.to(args.gpus), target.to(args.gpus)
+    criterion = nn.CrossEntropyLoss().to(device)
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+
+    train_sampler = torch.utils.data.distributed.DistributedSampler(
+        train_set,
+        num_replicas=world_size,
+        rank=rank
+    )
+    
+    train_loader = torch.utils.data.DataLoader(
+        train_set,
+        batch_size=batch_size,
+        sampler=train_sampler
+    )
+
+    for epoch in range(epochs):
+        epoch_start_time = time.time()
+        epoch_loss = 0.0      
+        comm_time = 0.0
+        for inputs, labels in train_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+
             optimizer.zero_grad()
-            output = model(data)
-            loss = criterion(output, target)
+            start_comm = time.time()
+            outputs = model(inputs)
+            comm_time += time.time() - start_comm
+            loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
-        end_time = time.time()
 
-        if epoch == 1:
-            print(f"GPUs: {args.gpus}, Batch size per GPU: {args.batch_size}, Epoch {epoch + 1} training time: {end_time - start_time:.2f} seconds")
+            epoch_loss += loss.item()
+
+        epoch_loss /= len(train_loader)
+        epoch_time = time.time() - epoch_start_time
+        if epoch==1:
+            print(f"Batch size: {batch_size}, Training time for epoch: {epoch_time:.2f} seconds")
+            print(f"Batch size: {batch_size}, Communication time for epoch: {comm_time:.4f} seconds")
+
+
+def main(gpu_counts, model, batch_size=16, epochs=2):
+    os.environ['MASTER_ADDR'] = 'localhost'
+    os.environ['MASTER_PORT'] = '12355'
+    
+    for gpu_count in gpu_counts:        
+        print(f"\nRunning with {gpu_count} GPUs")
+        world_size = gpu_count
+        mp.spawn(train, args=(world_size, model, batch_size, epochs), nprocs=world_size, join=True)
+
+transform = transforms.Compose([
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomCrop(32, padding=4),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
 
 if __name__ == "__main__":
-    main()
+    model = ResNet(BasicBlock, [2, 2, 2, 2])
+    epochs = 2
+
+    batch_sizes = [32, 128, 512]
+    gpu_counts = [1, 2, 4]
+    for batch_size in batch_sizes:
+        try:
+            main(gpu_counts, model, batch_size, epochs)
+        except RuntimeError as e:
+            if "out of memory" in str(e):
+                print(f"Batch size {batch_size} is too large for the available GPU memory.")
+                break
+            else:
+                raise e 
