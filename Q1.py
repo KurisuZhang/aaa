@@ -145,10 +145,9 @@ if __name__ == "__main__":
     epochs = 2
 
     batch_sizes = [32, 128, 512,1024,2048,4096,8192]
-    gpu_counts = [1, 2, 4]
     for batch_size in batch_sizes:
         try:
-            main(gpu_counts, model, batch_size, epochs)
+            main([1], model, batch_size, epochs)
         except RuntimeError as e:
             if "out of memory" in str(e):
                 print(f"Batch size {batch_size} is too large for the available GPU memory.")
