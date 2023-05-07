@@ -67,8 +67,18 @@ class ResNet(nn.Module):
         out = self.linear(out)
         return out
 
+def total_model_parameters(model):
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-def train(rank, world_size, model, batch_size, epochs):
+def accuracy(output, target):
+    with torch.no_grad():
+        batch_size = target.size(0)
+        _, pred = output.topk(1, 1, True, True)
+        pred = pred.t()
+        correct = pred.eq(target.view(1, -1).expand_as(pred)).view(-1).float().sum(0, keepdim=True)
+        return correct.mul_(100.0 / batch_size).item()
+
+def train(rank, world_size, model, batch_size, epochs, total_data_transferred):
     torch.manual_seed(0)
     device = torch.device(f'cuda:{rank}')
     
@@ -99,7 +109,8 @@ def train(rank, world_size, model, batch_size, epochs):
 
     for epoch in range(epochs):
         epoch_start_time = time.time()
-        epoch_loss = 0.0      
+        epoch_loss = 0.0
+        epoch_accuracy = 0.0        
         comm_time = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -113,22 +124,29 @@ def train(rank, world_size, model, batch_size, epochs):
             optimizer.step()
 
             epoch_loss += loss.item()
+            epoch_accuracy += accuracy(outputs, labels)
 
         epoch_loss /= len(train_loader)
+        epoch_accuracy /= len(train_loader)
         epoch_time = time.time() - epoch_start_time
-        if epoch==1:
-            print(f"Batch size: {batch_size}, Training time for epoch: {epoch_time:.2f} seconds")
-            print(f"Batch size: {batch_size}, Communication time for epoch: {comm_time:.4f} seconds")
+
+        print(f"Epoch {epoch + 1}: Loss {epoch_loss:.4f}, Accuracy {epoch_accuracy:.2f}%")
+        bandwidth_utilization = total_data_transferred / comm_time
+        print(f"Bandwidth utilization for {world_size} GPUs and batch size {batch_size}: {bandwidth_utilization/1e6:.2f} MB/sec")
 
 
-def main(gpu_counts, model, batch_size=16, epochs=2):
+def main(gpu_count, model, batch_size=100, epochs=10):
     os.environ['MASTER_ADDR'] = 'localhost'
     os.environ['MASTER_PORT'] = '12355'
+    
+    total_parameters = total_model_parameters(model)
+    bytes_per_parameter = 4 # float32
+    total_data_transferred = total_parameters * bytes_per_parameter
     
     for gpu_count in gpu_counts:        
         print(f"\nRunning with {gpu_count} GPUs")
         world_size = gpu_count
-        mp.spawn(train, args=(world_size, model, batch_size, epochs), nprocs=world_size, join=True)
+        mp.spawn(train, args=(world_size, model, batch_size, epochs, total_data_transferred), nprocs=world_size, join=True)
 
 transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
@@ -141,16 +159,17 @@ train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform
 
 if __name__ == "__main__":
     model = ResNet(BasicBlock, [2, 2, 2, 2])
+    gpu_count = 1
     epochs = 2
 
     batch_sizes = [32, 128, 512]
     gpu_counts = [1, 2, 4]
     for batch_size in batch_sizes:
         try:
-            main(gpu_counts, model, batch_size, epochs)
+            main(gpu_count, model, batch_size, epochs)
         except RuntimeError as e:
             if "out of memory" in str(e):
                 print(f"Batch size {batch_size} is too large for the available GPU memory.")
                 break
             else:
-                raise e 
+                raise e
