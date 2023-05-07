@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --time=2:00:00
 #SBATCH --mem=32GB
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:5
 #SBATCH --job-name=torch
 #SBATCH --output="%A\_%x.txt"
 #SBATCH --account=ece_gy_9143-2023sp
