@@ -152,7 +152,7 @@ train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform
 
 if __name__ == "__main__":
     model = ResNet(BasicBlock, [2, 2, 2, 2])
-    epochs = 2
+    epochs = 5
 
     batch_sizes = [2048]
     gpu_counts = [4]
