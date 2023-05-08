@@ -1,0 +1,73 @@
+Processor: Intel(R) Xeon(R) CPU @ 2.30GHz
+RAM: 124Gi
+GPU:     Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+Files already downloaded and verified
+
+Running with 4 GPUs
+Files already downloaded and verified
+Epoch 1: Loss 2.2529, Accuracy 16.63%
+Batch size: 2048, Training time for epoch: 26.70 seconds
+Batch size: 2048, Communication time for epoch: 16.6681 seconds
+Epoch 2: Loss 1.9425, Accuracy 27.64%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0638 seconds
+Epoch 3: Loss 1.7764, Accuracy 33.60%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0636 seconds
+Epoch 4: Loss 1.6301, Accuracy 38.68%
+Batch size: 2048, Training time for epoch: 7.87 seconds
+Batch size: 2048, Communication time for epoch: 0.0619 seconds
+Epoch 5: Loss 1.5332, Accuracy 42.42%
+Batch size: 2048, Training time for epoch: 7.83 seconds
+Batch size: 2048, Communication time for epoch: 0.0642 seconds
+Files already downloaded and verified
+Epoch 1: Loss 2.2580, Accuracy 17.37%
+Batch size: 2048, Training time for epoch: 26.70 seconds
+Batch size: 2048, Communication time for epoch: 16.6372 seconds
+Epoch 2: Loss 1.9273, Accuracy 27.63%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0613 seconds
+Epoch 3: Loss 1.7443, Accuracy 34.90%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0612 seconds
+Epoch 4: Loss 1.6228, Accuracy 39.02%
+Batch size: 2048, Training time for epoch: 7.87 seconds
+Batch size: 2048, Communication time for epoch: 0.0599 seconds
+Epoch 5: Loss 1.5162, Accuracy 44.05%
+Batch size: 2048, Training time for epoch: 7.83 seconds
+Batch size: 2048, Communication time for epoch: 0.0604 seconds
+Files already downloaded and verified
+Epoch 1: Loss 2.2500, Accuracy 16.57%
+Batch size: 2048, Training time for epoch: 26.70 seconds
+Batch size: 2048, Communication time for epoch: 16.6735 seconds
+Epoch 2: Loss 1.9147, Accuracy 28.39%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0618 seconds
+Epoch 3: Loss 1.7330, Accuracy 34.20%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0624 seconds
+Epoch 4: Loss 1.5991, Accuracy 39.94%
+Batch size: 2048, Training time for epoch: 7.87 seconds
+Batch size: 2048, Communication time for epoch: 0.0598 seconds
+Epoch 5: Loss 1.5042, Accuracy 43.63%
+Batch size: 2048, Training time for epoch: 7.83 seconds
+Batch size: 2048, Communication time for epoch: 0.0618 seconds
+Files already downloaded and verified
+Epoch 1: Loss 2.2449, Accuracy 16.81%
+Batch size: 2048, Training time for epoch: 26.70 seconds
+Batch size: 2048, Communication time for epoch: 16.6767 seconds
+Epoch 2: Loss 1.9277, Accuracy 26.93%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0619 seconds
+Epoch 3: Loss 1.7625, Accuracy 33.51%
+Batch size: 2048, Training time for epoch: 7.91 seconds
+Batch size: 2048, Communication time for epoch: 0.0615 seconds
+Epoch 4: Loss 1.6315, Accuracy 38.77%
+Batch size: 2048, Training time for epoch: 7.87 seconds
+Batch size: 2048, Communication time for epoch: 0.0615 seconds
+Epoch 5: Loss 1.5282, Accuracy 43.03%
+Batch size: 2048, Training time for epoch: 7.83 seconds
+Batch size: 2048, Communication time for epoch: 0.0652 seconds
