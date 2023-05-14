@@ -1,0 +1,142 @@
+Processor: Intel(R) Xeon(R) CPU @ 2.30GHz
+RAM: 124Gi
+GPU:     Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+    Product Name                          : Tesla V100-SXM2-16GB
+U_Net
+
+Running with 1 GPUs
+Epoch is [1/2], batch size 16
+Training time: 124.24 seconds
+Communication time: 22.6142 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 105.01 seconds
+Communication time: 4.3879 seconds
+-----------------
+
+Running with 2 GPUs
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Training time: 55.75 seconds
+Communication time: 3.7247 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 55.75 seconds
+Communication time: 3.6955 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 54.93 seconds
+Communication time: 2.2327 seconds
+-----------------
+Training time: 54.92 seconds
+Communication time: 2.1928 seconds
+-----------------
+
+Running with 3 GPUs
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Training time: 39.26 seconds
+Communication time: 3.0992 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 39.26 seconds
+Communication time: 3.2458 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 39.27 seconds
+Communication time: 3.0378 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 37.90 seconds
+Communication time: 1.5312 seconds
+-----------------
+Training time: 37.90 seconds
+Communication time: 1.5530 seconds
+-----------------
+Training time: 37.90 seconds
+Communication time: 1.5261 seconds
+-----------------
+
+Running with 4 GPUs
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Epoch is [1/2], batch size 16
+Training time: 31.00 seconds
+Communication time: 2.7593 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 31.00 seconds
+Communication time: 2.7693 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 31.00 seconds
+Communication time: 2.7632 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 31.01 seconds
+Communication time: 2.7794 seconds
+-----------------
+Epoch is [2/2], batch size 16
+Training time: 29.78 seconds
+Communication time: 1.2532 seconds
+-----------------
+Training time: 29.78 seconds
+Communication time: 1.2158 seconds
+-----------------
+Training time: 29.77 seconds
+Communication time: 1.2377 seconds
+-----------------
+Training time: 29.77 seconds
+Communication time: 1.2226 seconds
+-----------------
+U_Net
+
+Running with 1 GPUs
+Epoch is [1/2], batch size 32
+Traceback (most recent call last):
+  File "/home/sz3714/HPML_Project/unnet/unet_opt.py", line 385, in <module>
+    mp.spawn(train, args=(world_size, net, batch_size, epochs, Load_train), nprocs=world_size, join=True)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 240, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 198, in start_processes
+    while not context.join():
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 160, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/multiprocessing/spawn.py", line 69, in _wrap
+    fn(i, *args)
+  File "/home/sz3714/HPML_Project/unnet/unet_opt.py", line 331, in train
+    out = net(img_data)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1040, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1000, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/sz3714/HPML_Project/unnet/unet_opt.py", line 218, in forward
+    d2 = self.Up_conv2(d2)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/sz3714/HPML_Project/unnet/unet_opt.py", line 130, in forward
+    x = self.conv(x)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py", line 171, in forward
+    return F.batch_norm(
+  File "/ext3/miniconda3/lib/python3.10/site-packages/torch/nn/functional.py", line 2450, in batch_norm
+    return torch.batch_norm(
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 512.00 MiB (GPU 0; 15.78 GiB total capacity; 12.75 GiB already allocated; 468.19 MiB free; 14.03 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
